@@ -1,0 +1,27 @@
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\bin\Debug\IndexSearchDemoCS.exe
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\bin\Debug\IndexSearchDemoCS.pdb
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.Form1.resources
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.csproj.GenerateResource.Cache
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.exe
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.pdb
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.csprojResolveAssemblyReference.cache
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\bin\Debug\IndexSearchDemoCS.exe.config
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\IndexSearchDemoCS\bin\Debug\MySql.Data.dll
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\bin\Debug\IndexSearchDemoCS.exe.config
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.exe
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.pdb
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\bin\Debug\IndexSearchDemoCS.exe
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\bin\Debug\IndexSearchDemoCS.pdb
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\bin\Debug\MySql.Data.dll
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.csprojResolveAssemblyReference.cache
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.Form1.resources
+C:\Program Files\NITGEN eNBSP x64\SDK\Samples\dotNET\C#\Bachup du bom\IndexSearchDemoCS\obj\Debug\IndexSearchDemoCS.csproj.GenerateResource.Cache
+C:\dev\Visual Studio\AlmocoBiometrico\bin\Debug\IndexSearchDemoCS.exe.config
+C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.exe
+C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.pdb
+C:\dev\Visual Studio\AlmocoBiometrico\bin\Debug\IndexSearchDemoCS.exe
+C:\dev\Visual Studio\AlmocoBiometrico\bin\Debug\IndexSearchDemoCS.pdb
+C:\dev\Visual Studio\AlmocoBiometrico\bin\Debug\MySql.Data.dll
+C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.csprojResolveAssemblyReference.cache
+C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.Form1.resources
+C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.csproj.GenerateResource.Cache
