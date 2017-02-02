@@ -25,3 +25,4 @@ C:\dev\Visual Studio\AlmocoBiometrico\bin\Debug\MySql.Data.dll
 C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.csprojResolveAssemblyReference.cache
 C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.Form1.resources
 C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.csproj.GenerateResource.Cache
+C:\dev\Visual Studio\AlmocoBiometrico\obj\Debug\IndexSearchDemoCS.Form2.resources

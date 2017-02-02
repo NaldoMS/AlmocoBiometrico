@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+using System.Text;
+using System.Linq;
+
 using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +22,7 @@ namespace IndexSearchDemoCS
     /// </summary>
     public class Form1 : System.Windows.Forms.Form
     {
+        public string msg;
         NBioAPI m_NBioAPI;
         NBioAPI.IndexSearch m_IndexSearch;
 
@@ -30,10 +34,9 @@ namespace IndexSearchDemoCS
         private TextBox textUserID;
         private ListView listSearchDB;
         private ListView listResult;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private GroupBox groupBox2;
+        public ColumnHeader columnHeader1;
+        public ColumnHeader columnHeader2;
+        public ColumnHeader columnHeader3;
         private Button btnIdentify;
         private Button btnExit;
         private Button btnDBRemove;
@@ -76,28 +79,26 @@ namespace IndexSearchDemoCS
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new GroupBox();
-            this.comboBox1 = new ComboBox();
-            this.label1 = new Label();
-            this.btnRegist = new Button();
-            this.textUserID = new TextBox();
-            this.listSearchDB = new ListView();
-            this.columnUserID = ((ColumnHeader)(new ColumnHeader()));
-            this.columnFpID = ((ColumnHeader)(new ColumnHeader()));
-            this.columnSampleNo = ((ColumnHeader)(new ColumnHeader()));
-            this.listResult = new ListView();
-            this.columnHeader1 = ((ColumnHeader)(new ColumnHeader()));
-            this.columnHeader2 = ((ColumnHeader)(new ColumnHeader()));
-            this.columnHeader3 = ((ColumnHeader)(new ColumnHeader()));
-            this.groupBox2 = new GroupBox();
-            this.btnIdentify = new Button();
-            this.btnExit = new Button();
-            this.btnDBRemove = new Button();
-            this.btnSaveFile = new Button();
-            this.btnLoadFile = new Button();
-            this.btnDBClear = new Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnRegist = new System.Windows.Forms.Button();
+            this.textUserID = new System.Windows.Forms.TextBox();
+            this.listSearchDB = new System.Windows.Forms.ListView();
+            this.columnUserID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnFpID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnSampleNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listResult = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnIdentify = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnDBRemove = new System.Windows.Forms.Button();
+            this.btnSaveFile = new System.Windows.Forms.Button();
+            this.btnLoadFile = new System.Windows.Forms.Button();
+            this.btnDBClear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -172,12 +173,12 @@ namespace IndexSearchDemoCS
             // columnFpID
             // 
             this.columnFpID.Text = "ID do dedo";
-            this.columnFpID.Width = 101;
+            this.columnFpID.Width = 99;
             // 
             // columnSampleNo
             // 
             this.columnSampleNo.Text = "Nº do teste";
-            this.columnSampleNo.Width = 93;
+            this.columnSampleNo.Width = 98;
             // 
             // listResult
             // 
@@ -206,23 +207,14 @@ namespace IndexSearchDemoCS
             // 
             // columnHeader3
             // 
+            this.columnHeader3.Tag = "";
             this.columnHeader3.Text = "Nº do teste";
             this.columnHeader3.Width = 95;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnIdentify);
-            this.groupBox2.Location = new System.Drawing.Point(312, 8);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(296, 85);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Procurar";
             // 
             // btnIdentify
             // 
             this.btnIdentify.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnIdentify.Location = new System.Drawing.Point(87, 27);
+            this.btnIdentify.Location = new System.Drawing.Point(310, 320);
             this.btnIdentify.Name = "btnIdentify";
             this.btnIdentify.Size = new System.Drawing.Size(120, 24);
             this.btnIdentify.TabIndex = 1;
@@ -283,25 +275,28 @@ namespace IndexSearchDemoCS
             // 
             // Form1
             // 
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(616, 381);
+            this.Controls.Add(this.btnIdentify);
             this.Controls.Add(this.btnLoadFile);
             this.Controls.Add(this.btnDBClear);
             this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.btnDBRemove);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.listResult);
             this.Controls.Add(this.listSearchDB);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema de almoço";
             this.Closed += new System.EventHandler(this.Form1_Closed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -384,7 +379,6 @@ namespace IndexSearchDemoCS
                     c.Nome = leitor["nome"].ToString();
                     //adiciono o objeto a lista
                     lista.Add(c);
-
                 }
             }
             //fecho conexão
@@ -454,7 +448,29 @@ namespace IndexSearchDemoCS
                 listItem.SubItems.Add(sampleInfo.FingerID.ToString());
                 listItem.SubItems.Add(sampleInfo.SampleNumber.ToString());
                 listSearchDB.Items.Add(listItem);
+
+                string config = "server=localhost; database=lanche;  userid=root; password=vertrigo;";
+                MySqlConnection conexao = new MySqlConnection(config);
+
+                string query = "SELECT apelido FROM users where id =" + sampleInfo.ID; ;
+                //instância do comando onde passo
+                //a query e a conexão
+                MySqlCommand cmd = new MySqlCommand(query, conexao);
+                //Abro conexão
+                conexao.Open();
+                //instância do leitor que recebe
+                //o comando
+                MySqlDataReader leitor = cmd.ExecuteReader();
+                leitor.Read();
+                //atribuo os valores do bd
+                msg = "Usuário " + leitor["apelido"] + " adicionado com sucesso!";
+                //fecho conexão
+                conexao.Close();
+
             }
+
+            MessageBox.Show(msg);
+
 
             btnSaveFile_Click(sender, e);
         }
@@ -462,8 +478,6 @@ namespace IndexSearchDemoCS
         private void btnIdentify_Click(object sender, System.EventArgs e)
         {
             NBioAPI.Type.HFIR hCapturedFIR;
-
-            listResult.Items.Clear();
 
             // Get FIR data
             m_NBioAPI.OpenDevice(NBioAPI.Type.DEVICE_ID.AUTO);
@@ -482,33 +496,64 @@ namespace IndexSearchDemoCS
             m_IndexSearch.GetDataCount(out nMax);
 
             NBioAPI.IndexSearch.CALLBACK_INFO_0 cbInfo0 = new NBioAPI.IndexSearch.CALLBACK_INFO_0();
-
             // Identify FIR to IndexSearch DB
             NBioAPI.IndexSearch.FP_INFO fpInfo;
             ret = m_IndexSearch.IdentifyData(hCapturedFIR, NBioAPI.Type.FIR_SECURITY_LEVEL.NORMAL, out fpInfo, cbInfo0);
             if (ret != NBioAPI.Error.NONE)
             {
-                btnIdentify_Click(sender, e);
+                DialogResult confirm = MessageBox.Show("Digital não encontrada, tente novamente!", "Usuário não identificado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+                if (confirm.ToString().ToUpper() == "OK")
+                {
+                    btnIdentify_Click(sender, e);
+                }
 
                 //DisplayErrorMsg(ret);
                 return;
             }
-
             // Add item to list of result
             ListViewItem listItem = new ListViewItem();
             listItem.Text = fpInfo.ID.ToString();
             listItem.SubItems.Add(fpInfo.FingerID.ToString());
             listItem.SubItems.Add(fpInfo.SampleNumber.ToString());
             listResult.Items.Add(listItem);
+
+            //instância da conexão
+            string config = "server=localhost; database=lanche;  userid=root; password=vertrigo;";
+            MySqlConnection conexao = new MySqlConnection(config);
+            string query = "SELECT apelido FROM users where id =" + fpInfo.ID;
+            //instância do comando onde passo
+            //a query e a conexão
+            MySqlCommand cmd = new MySqlCommand(query, conexao);
+            //Abro conexão
+            conexao.Open();
+            //instância do leitor que recebe
+            //o comando
+            MySqlDataReader leitor = cmd.ExecuteReader();
+            leitor.Read();
+            //atribuo os valores do bd
+            //MessageBox.Show("Usuário verificado com sucesso: " + leitor["apelido"]);
+            ////fecho conexão
+            conexao.Close();
+            Form2 newForm2 = new Form2(fpInfo.ID.ToString());
+            newForm2.ShowDialog();
+            
         }
+
 
         private void btnExit_Click(object sender, System.EventArgs e)
         {
-            Close();
+            DialogResult sair = MessageBox.Show("Deseja realmente sair?", "Sair", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+
+            if (sair.ToString().ToUpper() == "YES")
+            {
+                Close();
+            }
         }
 
         private void btnDBRemove_Click(object sender, System.EventArgs e)
         {
+            DialogResult confirm = MessageBox.Show("Deseja realmente limpar o DB?", "Limpar DB", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+
             uint nUserID;
             byte nFingerID, nSampleNumber;
 
@@ -538,15 +583,19 @@ namespace IndexSearchDemoCS
                 }
             }
 
-            if (bIsRemoveAll)
+            if (confirm.ToString().ToUpper() == "YES")
             {
-                for (int i = listSearchDB.SelectedItems.Count - 1; i >= 0; i--)
-                    listSearchDB.SelectedItems[i].Remove();
-                MessageBox.Show("Usuário deleteado com sucesso!");
-            }
-            else
-            {
-                DisplayErrorMsg(ret);
+
+                if (bIsRemoveAll)
+                {
+                    for (int i = listSearchDB.SelectedItems.Count - 1; i >= 0; i--)
+                        listSearchDB.SelectedItems[i].Remove();
+                    MessageBox.Show("Usuário deletado com sucesso!");
+                }
+                else
+                {
+                    DisplayErrorMsg(ret);
+                }
             }
             btnSaveFile_Click(sender, e);
         }
@@ -595,7 +644,7 @@ namespace IndexSearchDemoCS
                     fw.WriteLine(listSearchDB.Items[i].Text + "\t" + listSearchDB.Items[i].SubItems[1].Text + "\t" +
                                  listSearchDB.Items[i].SubItems[2].Text);
                 }
-
+            
                 fw.Close();
                 fs.Close();
             }
@@ -603,12 +652,18 @@ namespace IndexSearchDemoCS
 
         private void btnDBClear_Click(object sender, System.EventArgs e)
         {
-            // Clear ListView of SearchDB
-            listSearchDB.Items.Clear();
+            DialogResult confirm = MessageBox.Show("Deseja realmente limbar DB?", "Limpar DB", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
 
-            // Clear IndexSearchDB
-            m_IndexSearch.ClearDB();
-            btnSaveFile_Click(sender, e);
+            if (confirm.ToString().ToUpper() == "YES")
+            {
+                // Clear ListView of SearchDB
+                listSearchDB.Items.Clear();
+
+                // Clear IndexSearchDB
+                m_IndexSearch.ClearDB();
+                btnSaveFile_Click(sender, e);
+            }   
+
         }
 
         private void btnLoadFile_Click(object sender, System.EventArgs e)
