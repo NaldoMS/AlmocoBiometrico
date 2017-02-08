@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Text;
 using System.Linq;
-
 using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
@@ -79,6 +78,7 @@ namespace IndexSearchDemoCS
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -244,7 +244,7 @@ namespace IndexSearchDemoCS
             // btnSaveFile
             // 
             this.btnSaveFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveFile.Location = new System.Drawing.Point(10, 352);
+            this.btnSaveFile.Location = new System.Drawing.Point(8, 352);
             this.btnSaveFile.Name = "btnSaveFile";
             this.btnSaveFile.Size = new System.Drawing.Size(144, 24);
             this.btnSaveFile.TabIndex = 2;
@@ -255,9 +255,9 @@ namespace IndexSearchDemoCS
             // btnLoadFile
             // 
             this.btnLoadFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLoadFile.Location = new System.Drawing.Point(160, 352);
+            this.btnLoadFile.Location = new System.Drawing.Point(154, 352);
             this.btnLoadFile.Name = "btnLoadFile";
-            this.btnLoadFile.Size = new System.Drawing.Size(144, 24);
+            this.btnLoadFile.Size = new System.Drawing.Size(150, 24);
             this.btnLoadFile.TabIndex = 4;
             this.btnLoadFile.Text = "Carregar BD";
             this.btnLoadFile.Visible = false;
@@ -288,8 +288,8 @@ namespace IndexSearchDemoCS
             this.Controls.Add(this.listSearchDB);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema de almoço";
@@ -501,7 +501,9 @@ namespace IndexSearchDemoCS
             ret = m_IndexSearch.IdentifyData(hCapturedFIR, NBioAPI.Type.FIR_SECURITY_LEVEL.NORMAL, out fpInfo, cbInfo0);
             if (ret != NBioAPI.Error.NONE)
             {
-                DialogResult confirm = MessageBox.Show("Digital não encontrada, tente novamente!", "Usuário não identificado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+                DialogResult confirm = MessageBox.Show("Digital não encontrada, tente novamente!",
+                    "Usuário não identificado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button2);
                 if (confirm.ToString().ToUpper() == "OK")
                 {
                     btnIdentify_Click(sender, e);
@@ -536,7 +538,8 @@ namespace IndexSearchDemoCS
             conexao.Close();
             Form2 newForm2 = new Form2(fpInfo.ID.ToString());
             newForm2.ShowDialog();
-            
+
+            btnIdentify_Click(sender, e);
         }
 
 
@@ -552,7 +555,7 @@ namespace IndexSearchDemoCS
 
         private void btnDBRemove_Click(object sender, System.EventArgs e)
         {
-            DialogResult confirm = MessageBox.Show("Deseja realmente limpar o DB?", "Limpar DB", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            DialogResult confirm = MessageBox.Show("Deseja realmente apagar o resgistro?", "Excluir registro", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
 
             uint nUserID;
             byte nFingerID, nSampleNumber;
@@ -583,9 +586,8 @@ namespace IndexSearchDemoCS
                 }
             }
 
-            if (confirm.ToString().ToUpper() == "YES")
+            if (confirm.ToString().ToUpper() == "YES" || listSearchDB.SelectedItems.Count <= 0)
             {
-
                 if (bIsRemoveAll)
                 {
                     for (int i = listSearchDB.SelectedItems.Count - 1; i >= 0; i--)
@@ -597,6 +599,7 @@ namespace IndexSearchDemoCS
                     DisplayErrorMsg(ret);
                 }
             }
+
             btnSaveFile_Click(sender, e);
         }
 
