@@ -102,15 +102,15 @@ namespace IndexSearchDemoCS
             //query do comando
             string selectDuBom = "SELECT nome " +
                                  "FROM produtos " +
-                                 "where sobremesa = " + 1 + " " +
-                                 "and id in(" +
+                                 "WHERE sobremesa = " + 1 + " " +
+                                 "AND id IN(" +
                                  "(SELECT id_produto " +
                                  "FROM produto_cardapio " +
-                                 "where id_cardapio = " +
+                                 "WHERE id_cardapio = " +
                                  "(SELECT id " +
                                  "FROM cardapio " +
-                                 "where data = '" + DateTime.Now.ToString("yyyy-MM-dd") + "' " +
-                                 "and turno =" + 0 + ")))";
+                                 "WHERE data = '" + DateTime.Now.ToString("yyyy-MM-dd") + "' " +
+                                 "AND turno =" + 0 + ")))";
             //instância do comando onde passo
             //a query e a conexão
             MySqlCommand cmd = new MySqlCommand(selectDuBom, conexao);
@@ -144,6 +144,11 @@ namespace IndexSearchDemoCS
             conexao.Close();
             //retorno a lista
             return lista;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -22,6 +22,7 @@ namespace IndexSearchDemoCS
     public class Form1 : System.Windows.Forms.Form
     {
         public string msg;
+        public int i;
         NBioAPI m_NBioAPI;
         NBioAPI.IndexSearch m_IndexSearch;
 
@@ -29,13 +30,11 @@ namespace IndexSearchDemoCS
         private Button btnRegist;
         private ColumnHeader columnUserID;
         private ColumnHeader columnFpID;
-        private ColumnHeader columnSampleNo;
         private TextBox textUserID;
         private ListView listSearchDB;
         private ListView listResult;
         public ColumnHeader columnHeader1;
         public ColumnHeader columnHeader2;
-        public ColumnHeader columnHeader3;
         private Button btnIdentify;
         private Button btnExit;
         private Button btnDBRemove;
@@ -43,6 +42,8 @@ namespace IndexSearchDemoCS
         private Label label1;
         private Button btnLoadFile;
         private Button btnDBClear;
+        private ColumnHeader nome;
+        private ColumnHeader columnHeader3;
         private ComboBox comboBox1;
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace IndexSearchDemoCS
             this.listSearchDB = new System.Windows.Forms.ListView();
             this.columnUserID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnFpID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnSampleNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.nome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listResult = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -155,7 +156,7 @@ namespace IndexSearchDemoCS
             this.listSearchDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnUserID,
             this.columnFpID,
-            this.columnSampleNo});
+            this.nome});
             this.listSearchDB.FullRowSelect = true;
             this.listSearchDB.GridLines = true;
             this.listSearchDB.Location = new System.Drawing.Point(8, 99);
@@ -167,18 +168,20 @@ namespace IndexSearchDemoCS
             // 
             // columnUserID
             // 
-            this.columnUserID.Text = "ID Usuário";
-            this.columnUserID.Width = 93;
+            this.columnUserID.Text = "ID";
+            this.columnUserID.Width = 34;
             // 
             // columnFpID
             // 
+            this.columnFpID.DisplayIndex = 2;
             this.columnFpID.Text = "ID do dedo";
-            this.columnFpID.Width = 99;
+            this.columnFpID.Width = 67;
             // 
-            // columnSampleNo
+            // nome
             // 
-            this.columnSampleNo.Text = "Nº do teste";
-            this.columnSampleNo.Width = 98;
+            this.nome.DisplayIndex = 1;
+            this.nome.Text = "Nome";
+            this.nome.Width = 191;
             // 
             // listResult
             // 
@@ -197,19 +200,20 @@ namespace IndexSearchDemoCS
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "ID Usuário";
-            this.columnHeader1.Width = 93;
+            this.columnHeader1.Text = "ID";
+            this.columnHeader1.Width = 33;
             // 
             // columnHeader2
             // 
+            this.columnHeader2.DisplayIndex = 2;
             this.columnHeader2.Text = "ID do dedo";
-            this.columnHeader2.Width = 101;
+            this.columnHeader2.Width = 65;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Tag = "";
-            this.columnHeader3.Text = "Nº do teste";
-            this.columnHeader3.Width = 95;
+            this.columnHeader3.DisplayIndex = 1;
+            this.columnHeader3.Text = "Nome";
+            this.columnHeader3.Width = 194;
             // 
             // btnIdentify
             // 
@@ -402,21 +406,7 @@ namespace IndexSearchDemoCS
         {
             NBioAPI.Type.HFIR hNewFIR;
             uint nUserID = 0;
-
-            // Get User ID
-            try
-            {
-                int test = Convert.ToInt32(textUserID.Text, 10);
-                if (test == 0)
-                    throw (new Exception());
-            }
-            catch
-            {
-                MessageBox.Show("User ID must be have numeric type and greater than 0.", "Error!", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return;
-            }
-
+            
             nUserID = Convert.ToUInt32(textUserID.Text, 10);
 
             // Get FIR data
@@ -443,12 +433,6 @@ namespace IndexSearchDemoCS
             // Add item to list of SearchDB
             foreach (NBioAPI.IndexSearch.FP_INFO sampleInfo in fpInfo)
             {
-                ListViewItem listItem = new ListViewItem();
-                listItem.Text = sampleInfo.ID.ToString();
-                listItem.SubItems.Add(sampleInfo.FingerID.ToString());
-                listItem.SubItems.Add(sampleInfo.SampleNumber.ToString());
-                listSearchDB.Items.Add(listItem);
-
                 string config = "server=localhost; database=lanche;  userid=root; password=vertrigo;";
                 MySqlConnection conexao = new MySqlConnection(config);
 
@@ -464,13 +448,18 @@ namespace IndexSearchDemoCS
                 leitor.Read();
                 //atribuo os valores do bd
                 msg = "Usuário " + leitor["apelido"] + " adicionado com sucesso!";
+
+                ListViewItem listItem = new ListViewItem();
+                listItem.Text = sampleInfo.ID.ToString();
+                listItem.SubItems.Add(sampleInfo.FingerID.ToString());
+                listItem.SubItems.Add(leitor["apelido"].ToString());
+
+                listSearchDB.Items.Add(listItem);            
                 //fecho conexão
                 conexao.Close();
 
             }
-
             MessageBox.Show(msg);
-
 
             btnSaveFile_Click(sender, e);
         }
@@ -512,12 +501,6 @@ namespace IndexSearchDemoCS
                 //DisplayErrorMsg(ret);
                 return;
             }
-            // Add item to list of result
-            ListViewItem listItem = new ListViewItem();
-            listItem.Text = fpInfo.ID.ToString();
-            listItem.SubItems.Add(fpInfo.FingerID.ToString());
-            listItem.SubItems.Add(fpInfo.SampleNumber.ToString());
-            listResult.Items.Add(listItem);
 
             //instância da conexão
             string config = "server=localhost; database=lanche;  userid=root; password=vertrigo;";
@@ -533,7 +516,13 @@ namespace IndexSearchDemoCS
             MySqlDataReader leitor = cmd.ExecuteReader();
             leitor.Read();
             //atribuo os valores do bd
-            //MessageBox.Show("Usuário verificado com sucesso: " + leitor["apelido"]);
+            // Add item to list of result
+            ListViewItem listItem = new ListViewItem();
+            listItem.Text = fpInfo.ID.ToString();
+            listItem.SubItems.Add(fpInfo.FingerID.ToString());
+            listItem.SubItems.Add(leitor["apelido"].ToString());
+            listResult.Items.Add(listItem);
+
             ////fecho conexão
             conexao.Close();
             Form2 newForm2 = new Form2(fpInfo.ID.ToString());
@@ -558,7 +547,7 @@ namespace IndexSearchDemoCS
             DialogResult confirm = MessageBox.Show("Deseja realmente apagar o resgistro?", "Excluir registro", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
 
             uint nUserID;
-            byte nFingerID, nSampleNumber;
+            byte nFingerID;
 
             if (listSearchDB.Items.Count <= 0)
                 return;
@@ -575,10 +564,9 @@ namespace IndexSearchDemoCS
             for (int i = listSearchDB.SelectedItems.Count - 1; i >= 0; i--)
             {
                 nUserID = Convert.ToUInt32(listSearchDB.SelectedItems[i].Text);
-                nFingerID = Convert.ToByte(listSearchDB.SelectedItems[i].SubItems[1].Text);
-                nSampleNumber = Convert.ToByte(listSearchDB.SelectedItems[i].SubItems[2].Text);
+                nFingerID = Convert.ToByte(listSearchDB.SelectedItems[i].SubItems[i].Text);
 
-                ret = m_IndexSearch.RemoveData(nUserID, nFingerID, nSampleNumber);
+                ret = m_IndexSearch.RemoveData(nUserID, nFingerID, Byte.MaxValue);
                 if (ret != NBioAPI.Error.NONE)
                 {
                     bIsRemoveAll = false;
@@ -644,8 +632,8 @@ namespace IndexSearchDemoCS
 
                 for (int i = 0; i < listSearchDB.Items.Count; i++)
                 {
-                    fw.WriteLine(listSearchDB.Items[i].Text + "\t" + listSearchDB.Items[i].SubItems[1].Text + "\t" +
-                                 listSearchDB.Items[i].SubItems[2].Text);
+                    fw.WriteLine(listSearchDB.Items[i].Text + "\t" + listSearchDB.Items[i].SubItems[2].Text + "\t" +
+                                 listSearchDB.Items[i].SubItems[1].Text);
                 }
             
                 fw.Close();
@@ -706,14 +694,39 @@ namespace IndexSearchDemoCS
                 {
                     try
                     {
+
+                        String[] nomes = new string[] { };
                         string szLine = fr.ReadLine();
 
                         string[] szSplit = szLine.Split('\t');
 
+                        String config = "server=localhost; database=lanche;  userid=root; password=vertrigo;";
+                        MySqlConnection conexao = new MySqlConnection(config);
+
+                        string query = "SELECT apelido FROM users where id =" + szSplit[0];
+                        //instância do comando onde passo
+                        //a query e a conexão
+                        MySqlCommand cmd = new MySqlCommand(query, conexao);
+                        //Abro conexão
+                        conexao.Open();
+                        //instância do leitor que recebe
+                        //o comando
+                        MySqlDataReader leitor = cmd.ExecuteReader();
+                        leitor.Read();
+                        //MessageBox.Show("" + leitor["apelido"]);
+                        //]essageBox.Show(i + "");
+                        //nomes[i] = leitor["apelido"].ToString();
+                        // MessageBox.Show(nomes[0]);
+
+                        //atribuo os valores do bd
+                        //fecho conexão
+                        conexao.Close();
+
                         ListViewItem listItem = new ListViewItem();
                         listItem.Text = szSplit[0];
-                        listItem.SubItems.Add(szSplit[1]);
+                        //listItem.SubItems.Add(leitor["apelido"].ToString());
                         listItem.SubItems.Add(szSplit[2]);
+                        listItem.SubItems.Add(szSplit[1]);
                         listSearchDB.Items.Add(listItem);
                     }
                     catch
@@ -754,5 +767,6 @@ namespace IndexSearchDemoCS
             //fecho conexão
             conexao.Close();
         }
+
     }
 }
